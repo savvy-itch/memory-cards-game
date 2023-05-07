@@ -1,24 +1,27 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import GameSettings from './components/GameSettings';
+import Game from './components/Game';
+import { GridContext } from './context';
 import './App.css';
 
 function App() {
+  const [gameSettings, setGameSettings] = useState(true);
+  const [gridSize, setGridSize] = useState('4');
+
+  if (gameSettings) {
+    return (
+      <GridContext.Provider value={{gridSize, setGridSize}}>
+        <GameSettings setGameSettings={setGameSettings} />
+      </GridContext.Provider>
+    )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GridContext.Provider value={{gridSize, setGridSize}}>
+      <div className="App">
+        <Game />
+      </div>
+    </GridContext.Provider>
   );
 }
 

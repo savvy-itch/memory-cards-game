@@ -11,32 +11,47 @@
   background-color: rgba(0,0,0,.7);
   backdrop-filter: blur(3px);
 }
+.game-settings h1 {
+  margin-bottom: 2rem;
+}
 .grid-size {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin: 1rem 0 2rem 0;
 }
-.game-settings p {
-  font-size: 1.1rem;
-  font-weight: 500;
-  align-self: flex-start;
+.grid-size input[type="radio"] {
+  opacity: 0;
+  position: fixed;
+  width: 0;
 }
-.grid-size-btn {
+.grid-size label {
+  display: inline-block;
   padding: 1rem 1.5rem;
   background-color: blueviolet;
   font-size: 1.1rem;
   font-weight: 600;
   color: white;
-  border: 0;
+  border: 2px solid blueviolet;
   border-radius: 6px;
   transition: .2s;
 }
-.grid-size-btn:hover {
+.grid-size input[type="radio"]:hover + label {
   cursor: pointer;
   background-color: darkviolet;
 }
-.grid-size-btn:active {
+.grid-size input[type="radio"]:checked + label {
   background-color: hsl(282, 100%, 30%);
+  border: 2px solid white;
+}
+.grid-size input[type="radio"]:focus + label {
+  border: 2px solid white;
+}
+
+.game-settings p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  align-self: flex-start;
 }
 .start-btn {
   padding: 1rem;
@@ -45,9 +60,26 @@
   text-transform: uppercase;
   color: white;
   background-color: blueviolet;
-  border: 0;
+  border: 2px solid blueviolet;
   border-radius: 10px;
 }
 .start-btn:hover {
   cursor: pointer;
+  background-color: darkviolet;
+}
+.start-btn:active {
+  background-color: hsl(282, 100%, 30%);
+  border: 2px solid white;
+}
+
+@media screen and (max-width: 568px) {
+  .game-settings {
+    padding: 1rem;
+  }
+  .game-settings h1 {
+    font-size: 1.5rem;
+  }
+  .grid-size label {
+    padding: 1rem;
+  }
 }

@@ -1,26 +1,11 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Card from './Card';
+import GameOver from './GameOver';
 import './Game.css';
-import { cards } from '../cards';
-import { GridContext } from '../context';
 
-// game settings
-// score count
-// game results message
+// bubbles background animation
 
-const CARDS = shuffleArray(cards);
-// The Fisher-Yates algorithm
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) { 
-    let j = Math.floor(Math.random() * (i + 1));
-    let temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
-  return array;
-}
-
-export default function Game() {
+export default function Game({ cards, setGameSettings }) {
   const [flippedCard, setFlippedCard] = useState(null);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [currentPair, setCurrentPair] = useState([]);
@@ -28,7 +13,20 @@ export default function Game() {
   const moves = useRef(0);
   const score = useRef(0);
 
-  const {gridSize} = useContext(GridContext);
+  let gridClass;
+  switch (cards.length) {
+    case 16:
+      gridClass = 'col-4';
+      break;
+    case 36:
+      gridClass = 'col-6';
+      break;
+    case 64:
+      gridClass = 'col-8';
+      break;
+    default:
+      gridClass = 'col-4';
+  }
 
   function handleClick(e) {
     setIsCardFlipped(true);
@@ -73,7 +71,7 @@ export default function Game() {
         currentPair[1].classList.add('wrong-card');
         currentPair[0].classList.remove('flip-card');
         currentPair[1].classList.remove('flip-card');
-      }, 300);
+      }, 750);
       setTimeout(() => {
         currentPair[0].classList.remove('wrong-card');
         currentPair[1].classList.remove('wrong-card');
@@ -88,16 +86,20 @@ export default function Game() {
     }
   }, [currentPair]);
 
+  if (openCards.length === cards.length) {
+    return <GameOver moves={moves.current} score={score.current} setGameSettings={setGameSettings} />
+  }
+
   return (
     <div className="container">
       <div className="game-stats">
         <div className="game-moves">Moves: {moves.current}</div>
         <div className="game-score">Score: {score.current}</div>
       </div>
-      <div className="cards-grid">
-        {CARDS.map((card, index) => {
+      <div className={`cards-grid ${gridClass}`}>
+        {cards.map((card, index) => {
           return <Card key={index} 
-            card={card.pair}
+            card={card}
             onClick={handleClick}
             openCards={openCards}
           />

@@ -4,7 +4,6 @@ import Game from './components/Game';
 import { GridContext } from './context';
 import { cards } from './cards';
 import './App.css';
-import Bubbles from './components/Bubbles';
 
 function App() {
   const [gameSettings, setGameSettings] = useState(true);
@@ -27,7 +26,6 @@ function App() {
   if (gameSettings) {
     return (
       <GridContext.Provider value={{gridSize, setGridSize}}>
-        <Bubbles />
         <GameSettings setGameSettings={setGameSettings} />
       </GridContext.Provider>
     )
@@ -35,7 +33,6 @@ function App() {
 
   return (
     <div className="App">
-      <Bubbles />
       <Game cards={CARDS} setGameSettings={setGameSettings} />
     </div>
   );

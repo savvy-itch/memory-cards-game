@@ -1,5 +1,3 @@
-// add disabled filter on open cards
-
 export default function Card({ card, onClick, openCards }) {
   return (
     <button className="card"
@@ -11,9 +9,7 @@ export default function Card({ card, onClick, openCards }) {
         <div className="card-back">
           <img src={card.img} alt="card" />
         </div>
-        <div className="card-front">
-          {card.pair}
-        </div>
+        <div className="card-front"></div>
       </div>
     </button>
   )

@@ -3,8 +3,6 @@ import Card from './Card';
 import GameOver from './GameOver';
 import './Game.css';
 
-// bubbles background animation
-
 export default function Game({ cards, setGameSettings }) {
   const [flippedCard, setFlippedCard] = useState(null);
   const [isCardFlipped, setIsCardFlipped] = useState(false);
@@ -29,6 +27,11 @@ export default function Game({ cards, setGameSettings }) {
   }
 
   function handleClick(e) {
+    // prevent clicking twice on the same card
+    if (currentPair.includes(e.currentTarget)) {
+      return;
+    }
+
     setIsCardFlipped(true);
     setFlippedCard(e.currentTarget);
     e.currentTarget.classList.add('flip-card');
